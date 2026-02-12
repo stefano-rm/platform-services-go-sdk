@@ -1779,6 +1779,9 @@ type TagResultsItem struct {
 
 	// It is `true` if the operation exits with an error.
 	IsError *bool `json:"is_error,omitempty"`
+
+	// Error message returned when the operation fails.
+	Message *string `json:"message,omitempty"`
 }
 
 // UnmarshalTagResultsItem unmarshals an instance of TagResultsItem from the specified map of raw messages.
@@ -1792,6 +1795,11 @@ func UnmarshalTagResultsItem(m map[string]json.RawMessage, result interface{}) (
 	err = core.UnmarshalPrimitive(m, "is_error", &obj.IsError)
 	if err != nil {
 		err = core.SDKErrorf(err, "", "is_error-error", common.GetComponentInfo())
+		return
+	}
+	err = core.UnmarshalPrimitive(m, "message", &obj.Message)
+	if err != nil {
+		err = core.SDKErrorf(err, "", "message-error", common.GetComponentInfo())
 		return
 	}
 	reflect.ValueOf(result).Elem().Set(reflect.ValueOf(obj))
